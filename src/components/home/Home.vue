@@ -1,5 +1,13 @@
 <template>
     <div class="home-container">
+        <el-backtop target=".home-container .page-component__scroll .el-scrollbar__wrap"></el-backtop>
+        <!-- backTop -->
+        <div class="backTop">
+            
+        </div>
+
+
+        <!-- 轮播图 banner -->
         <div class="header">
 
             <div class="nav-bar">
@@ -13,7 +21,7 @@
                 <img :src="require('@/assets/images/logo/logo_opacity.png')" height="120px" alt="">
                 <form action="" onsubmit="search">
                     <div>
-                        <input type="text" class="keywords" placeholder="寻找你需要的房源">
+                        <input type="text" class="keywords" placeholder="你一定能找到你满意的">
                         <span class="el-icon-search search-btn" @click="search"></span>
                     </div>
                 </form>
@@ -55,6 +63,7 @@
         <div class="house-list">
             <HouseList/>
         </div>
+
     </div>
 </template>
 

@@ -6,6 +6,8 @@ import AdminLogin from '@/components/login/AdminLogin'
 
 import Home from '@/components/home/Home';
 
+import NotFound from '@/components/error/NotFound'
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -35,6 +37,16 @@ const routes = [
             title: '欢迎来到房屋租赁系统',
             requireLogin: false
         }
+    },
+    // 404
+    {
+      path: '*',
+      name: 'NotFound',
+      component: NotFound,
+      meta: {
+        title: '404 当前页面走丢了',
+        requireLogin: false
+    }
     }
 
 ];

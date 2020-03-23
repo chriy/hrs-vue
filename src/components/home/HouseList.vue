@@ -38,7 +38,7 @@
                     <el-divider direction="vertical"></el-divider>
                     <el-tag type="success">120 平米</el-tag>
                     <el-divider direction="vertical"></el-divider>
-                    <el-tag type="warning" >整租</el-tag>
+                    <el-tag type="warning">整租</el-tag>
                     <el-divider direction="vertical"></el-divider>
                     <el-tag type="info">高层</el-tag>
                     <el-divider direction="vertical"></el-divider>
