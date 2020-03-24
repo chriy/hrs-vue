@@ -20,10 +20,10 @@
                 <img :src="require('@/assets/images/logo/logo_opacity.png')" v-show="!isFixed" height="120px" alt="">
                 <form action="" onsubmit="search">
                     <div>
-                        <img :src="require('@/assets/images/logo/logo_opacity.png')" v-show="isFixed" height="60px"
+                        <img :src="require('@/assets/images/logo/logo_opacity.png')" v-show="isFixed" height="56px"
                              style="vertical-align: middle" alt="">
                         <input type="text" ref="keywords" class="keywords" placeholder="你一定能找到你满意的">
-                        <span class="el-icon-search search-btn" @click="search"></span>
+                        <span class="el-icon-search search-btn" ref="btn" @click="search"></span>
                     </div>
                 </form>
             </div>
@@ -60,9 +60,13 @@
 
         </div>
 
-
+        <!--house list-->
         <div class="house-list">
             <HouseList/>
+        </div>
+
+        <div class="footer">
+            <Footer/>
         </div>
 
     </div>
@@ -71,6 +75,7 @@
 <script>
 
     import HouseList from './HouseList'
+    import Footer from "../footer/Footer";
 
     export default {
         name: 'Home',
@@ -88,6 +93,7 @@
             }
         },
         components: {
+            Footer,
             HouseList
         },
         methods: {
@@ -98,17 +104,24 @@
             handlerscroll() {
                 let scrollTop = window.pageYOffset
                 let oSearch = this.$refs.search
-
+                let oKeywords = this.$refs.keywords
+                let oBtn = this.$refs.btn
 
                 if (scrollTop > 300) {
                     oSearch.style.position = 'fixed'
                     oSearch.style.top = 0
                     oSearch.style.zIndex = 12
-                    oSearch.style.backgroundColor = "#444d5d"
-                    oSearch.style.height = '60px'
+                    oSearch.style.backgroundColor = "rgba(68, 77, 93, .8)"
+
+                    oSearch.style.boxShadow = "0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)"
+                    oSearch.style.height = '56px'
+                    oKeywords.style.height = '40px'
+                    oBtn.style.height = '40px'
                     this.isFixed = true
                 } else {
                     oSearch.removeAttribute('style')
+                    oKeywords.removeAttribute('style')
+                    oBtn.removeAttribute('style')
                     this.isFixed = false
                 }
 
@@ -255,11 +268,5 @@
         width: 100vw;
     }
 
-    .fixed-top {
-        backgroundColor: '#444d5d';
-        height: '60px';
-        position: 'fixed';
-        top: 0;
-    }
 
 </style>
