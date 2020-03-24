@@ -16,7 +16,7 @@
                 </a>
             </div>
         </div>
-    
+
         <div class="list-item">
             <div class="item" v-for="i in 10" :key="i">
                 <div class="lazy-image">
@@ -31,7 +31,7 @@
                     <span class="sale-unit">元/月</span>
                 </div>
                 <div class="">
-                   
+
                 </div>
                 <div class="house-data" style="text-align:left">
                     <el-tag type="" >三室一厅</el-tag>
@@ -55,9 +55,8 @@
             </div>
             <el-divider></el-divider>
             <div class="pagination">
-                <el-button>上一页</el-button>
+                <el-button disabled>上一页</el-button>
                 <el-button>下一页</el-button>
-                <el-input style="width: 80px"></el-input>
             </div>
         </div>
     </div>
@@ -141,7 +140,7 @@ export default {
         justify-items: center;
         transition: all 0.5s;
     }
-    
+
     .house-list .list-nav .bg{
         position: absolute;
         top:7px;
@@ -222,7 +221,7 @@ export default {
         overflow: hidden;
         white-space: nowrap;
     }
-    
+
     .house-list .list-item .item .house-data{
         font-size: 14px;
         color: #409EFF;

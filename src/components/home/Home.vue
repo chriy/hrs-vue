@@ -1,27 +1,28 @@
 <template>
     <div class="home-container">
-        <el-backtop target=".home-container .page-component__scroll .el-scrollbar__wrap"></el-backtop>
+
         <!-- backTop -->
         <div class="backTop">
-            
+            <el-backtop></el-backtop>
         </div>
-
 
         <!-- 轮播图 banner -->
         <div class="header">
-
             <div class="nav-bar">
                 <div class="nav">
                     <a href="/login" v-if="!isLogin">登录</a>
-                    <a href="" v-if="isLogin">个人中心</a>
+                    <a href="javascript:void(0)" v-if="isLogin">退出</a>
+                    <a href="/profile" v-if="isLogin">个人中心</a>
                 </div>
             </div>
 
-            <div class="search">
-                <img :src="require('@/assets/images/logo/logo_opacity.png')" height="120px" alt="">
+            <div class="search" ref="search">
+                <img :src="require('@/assets/images/logo/logo_opacity.png')" v-show="!isFixed" height="120px" alt="">
                 <form action="" onsubmit="search">
                     <div>
-                        <input type="text" class="keywords" placeholder="你一定能找到你满意的">
+                        <img :src="require('@/assets/images/logo/logo_opacity.png')" v-show="isFixed" height="60px"
+                             style="vertical-align: middle" alt="">
+                        <input type="text" ref="keywords" class="keywords" placeholder="你一定能找到你满意的">
                         <span class="el-icon-search search-btn" @click="search"></span>
                     </div>
                 </form>
@@ -75,25 +76,48 @@
         name: 'Home',
         data() {
             return {
-                isLogin: false,
+                isLogin: true,
                 imgList: [
                     require('@/assets/images/banner/banner-3.jpg'),
                     require('@/assets/images/banner/banner-4.jpg'),
                     require('@/assets/images/banner/banner-1.jpg'),
-                    require('@/assets/images/banner/banner-2.jpg'),
-                ]
+                    require('@/assets/images/banner/banner-2.jpg')
+                ],
+                // 吸顶状态
+                isFixed: false
             }
         },
         components: {
             HouseList
         },
         methods: {
-
             search() {
                 this.$message("OK")
-                return false;
+                return false
+            },
+            handlerscroll() {
+                let scrollTop = window.pageYOffset
+                let oSearch = this.$refs.search
+
+
+                if (scrollTop > 300) {
+                    oSearch.style.position = 'fixed'
+                    oSearch.style.top = 0
+                    oSearch.style.zIndex = 12
+                    oSearch.style.backgroundColor = "#444d5d"
+                    oSearch.style.height = '60px'
+                    this.isFixed = true
+                } else {
+                    oSearch.removeAttribute('style')
+                    this.isFixed = false
+                }
+
             }
 
+
+        },
+        mounted() {
+            window.addEventListener("scroll", this.handlerscroll)
         }
     }
 </script>
@@ -102,7 +126,6 @@
     .home-container {
         width: 100vw;
         height: auto;
-        height: 800px;
     }
 
     .home-container .nav-bar {
@@ -160,7 +183,7 @@
         box-sizing: border-box;
         border-radius: 40px;
         border: none;
-        vertical-align:middle;
+        vertical-align: middle;
         background-color: rgb(255, 255, 255);
         color: #6495ed;
     }
@@ -177,16 +200,10 @@
         line-height: 46px;
         border-radius: 0 40px 40px 0;
         cursor: pointer;
-        vertical-align:middle;
+        vertical-align: middle;
     }
 
-    .home-container .search .desc {
-        font-size: 22px;
-        font-weight: 400;
-        color: #fff;
-    }
-
-    .home-container .intro-tag{
+    .home-container .intro-tag {
         position: absolute;
         top: 380px;
         width: 100%;
@@ -194,9 +211,9 @@
         z-index: 10;
     }
 
-    .home-container .intro-tag .intro-item{
+    .home-container .intro-tag .intro-item {
         display: grid;
-        grid-template-columns: repeat(4,1fr);
+        grid-template-columns: repeat(4, 1fr);
         grid-gap: 20px;
         width: 1000px;
         height: 100%;
@@ -206,19 +223,19 @@
         user-select: none;
     }
 
-    .home-container .intro-tag .intro-item .item{
+    .home-container .intro-tag .intro-item .item {
         height: 160px;
         align-items: center;
         border-radius: 10px;
         cursor: pointer;
     }
 
-    .home-container .intro-tag .intro-item .item:hover{
+    .home-container .intro-tag .intro-item .item:hover {
         background-color: rgb(100, 149, 237, .7);
         box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
     }
 
-    .home-container .intro-tag .intro-item .item .icon{
+    .home-container .intro-tag .intro-item .item .icon {
         display: block;
         height: 100px;
         font-size: 48px;
@@ -226,22 +243,23 @@
         color: #fff;
     }
 
-    .home-container .intro-tag .intro-item .item .type{
+    .home-container .intro-tag .intro-item .item .type {
         display: block;
         font-size: 24px;
         color: #fff;
     }
 
-    .el-carousel__item {
-        filter: brightness(50%);
-        min-height: 800px;
-    }
-
 
     /* house list */
-
     .house-list {
         width: 100vw;
+    }
+
+    .fixed-top {
+        backgroundColor: '#444d5d';
+        height: '60px';
+        position: 'fixed';
+        top: 0;
     }
 
 </style>
