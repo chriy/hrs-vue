@@ -20,19 +20,19 @@
         <div class="list-item">
             <div class="item" v-for="i in 5" :key="i">
                 <div class="lazy-image">
-                    <img :src="require('@/assets/images/house/image.jpg')" height="100%" alt="">
+                    <img :src="require('@/assets/images/house/error.png')" height="100%" alt="">
                 </div>
                 <div class="house-desc">
-                    <h2 class="desc">海月花园一期 房子业主诚心卖 看期 房子业主诚心卖 看期 房子业主诚心卖 看期 房子业主诚心卖 看期 房子业主诚心卖 看房方便 大三房</h2>
+                    <a href="/detail" class="desc">
+                        海月花园一期 房子业主诚心卖 看期 房子业主诚心卖 看期 房子业主诚心卖 看期 房子业主诚心卖 看期 房子业主诚心卖 看房方便 大三房
+                    </a>
                     <el-divider></el-divider>
                 </div>
                 <div class="house-price">
                     <span class="sale-price">1280</span>
                     <span class="sale-unit">元/月</span>
                 </div>
-                <div class="">
-
-                </div>
+                <div></div>
                 <div class="house-data" style="text-align:left">
                     <el-tag type="">三室一厅</el-tag>
                     <el-divider direction="vertical"></el-divider>
@@ -53,6 +53,7 @@
                     <el-link>发布时间：2020-03-01</el-link>
                 </div>
             </div>
+
             <el-divider></el-divider>
             <div class="pagination">
                 <el-button disabled>上一页</el-button>
@@ -72,8 +73,7 @@
                     {key: 2, label: '价格升序'},
                     {key: 3, label: '价格降序'},
                 ],
-                currIndex: 0,
-                fullscreenLoading: true
+                currIndex: 0
             }
         },
         methods: {
@@ -92,10 +92,8 @@
                 setTimeout(() => {
                     loading.close();
                 }, 1000)
-
             }
         }
-
     }
 </script>
 
@@ -217,6 +215,14 @@
     }
 
     .house-list .list-item .item .house-desc .desc {
+        position: relative;
+        top: 20px;
+        display: block;
+        font-size: 22px;
+        font-weight: bold;
+        text-decoration: none;
+        color: #2c3e50;
+        display: block;
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
