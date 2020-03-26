@@ -5,7 +5,7 @@
                 <span>精选房源</span>
             </div>
             <div class="count">
-                <span>当前找到 <strong style="color: #6495ed">8</strong> 套房源信息</span>
+                <span>当前找到 <strong style="color: #6495ed" v-text="houseNumber">0</strong> 套房源信息</span>
             </div>
             <div class="order">
                 <div class="bg" ref="bg"></div>
@@ -18,42 +18,52 @@
         </div>
 
         <div class="list-item">
-            <div class="item" v-for="i in 5" :key="i">
+            <div class="item" v-for="house in houseList" :key="house.id">
                 <div class="lazy-image">
                     <img :src="require('@/assets/images/house/error.png')" height="100%" alt="">
                 </div>
                 <div class="house-desc">
-                    <a href="/detail" class="desc">
-                        海月花园一期 房子业主诚心卖 看期 房子业主诚心卖 看期 房子业主诚心卖 看期 房子业主诚心卖 看期 房子业主诚心卖 看房方便 大三房
+                    <a href="/detail" class="desc" v-text="house.descripe">
+                        海月花园一期 房子业主诚心卖
                     </a>
                     <el-divider></el-divider>
                 </div>
                 <div class="house-price">
-                    <span class="sale-price">1280</span>
+                    <span class="sale-price" v-text="house.price">0</span>
                     <span class="sale-unit">元/月</span>
                 </div>
                 <div></div>
-                <div class="house-data" style="text-align:left">
-                    <el-tag type="">三室一厅</el-tag>
-                    <el-divider direction="vertical"></el-divider>
-                    <el-tag type="success">120 平米</el-tag>
-                    <el-divider direction="vertical"></el-divider>
-                    <el-tag type="warning">整租</el-tag>
-                    <el-divider direction="vertical"></el-divider>
-                    <el-tag type="info">高层</el-tag>
-                    <el-divider direction="vertical"></el-divider>
-                    <el-tag type="danger">1200 元/月</el-tag>
-                    <el-divider direction="vertical"></el-divider>
-                    <el-tag type="warning">张江 紫薇路667弄</el-tag>
+                <div class="house-data" style="text-align:left;color:#606266;">
                     <p>
-                        <el-tag type="info"><span class="el-icon-view"><b>210</b></span></el-tag>
+                        <span>规格：</span>
+                        <el-tag v-text="house.standard">数据统计中</el-tag>
+                        <el-divider direction="vertical"></el-divider>
+                        <span>面积：</span>
+                        <el-tag type="success"><span v-text="house.area">0</span> 平米</el-tag>
+                        <el-divider direction="vertical"></el-divider>
+                        <span>出租方式：</span>
+                        <el-tag type="warning" v-text="house.rentType">数据统计中</el-tag>
+                        <el-divider direction="vertical"></el-divider>
+                        <span>楼层：</span>
+                        <el-tag type="info" v-text="house.floor">数据统计中</el-tag>
+                    </p>
+                    <p>
+                        <span>地址：</span>
+                        <el-tag type="warning" v-text="house.address">数据统计中</el-tag>
+                        <el-divider direction="vertical"></el-divider>
+                        <span>浏览人数：</span>
+                        <el-tag type="danger"><b v-text="house.visitors">数据统计中</b></el-tag>
+                    </p>
+                    <p>
+                        <span>发布时间：</span>
+                        <el-link v-text="house.pulishTime">数据统计中</el-link>
                     </p>
                 </div>
-                <div style="text-align:left">
-                    <el-link>发布时间：2020-03-01</el-link>
-                </div>
             </div>
-
+            <div class="empty-list">
+                <img :src="require('@/assets/images/error/empty-list.gif')" alt="">
+                <h4>抱歉哦，当前没找到你想要的房源</h4>
+            </div>
             <el-divider></el-divider>
             <div class="pagination">
                 <el-button disabled>上一页</el-button>
@@ -73,7 +83,24 @@
                     {key: 2, label: '价格升序'},
                     {key: 3, label: '价格降序'},
                 ],
-                currIndex: 0
+                // 条件筛选当前激活索引
+                currIndex: 0,
+                // 房源数量
+                houseNumber: 1,
+                houseList: [
+                    {
+                        id: 1,
+                        descripe: '海月花园一期 房子业主诚心卖',
+                        standard: '三室一厅',
+                        area: '123',
+                        rentType: '整租',
+                        floor: '高层',
+                        address: '张江 紫薇路667弄',
+                        visitors: 320,
+                        price: 12801,
+                        pulishTime: '2020-03-29'
+                    }
+                ]
             }
         },
         methods: {

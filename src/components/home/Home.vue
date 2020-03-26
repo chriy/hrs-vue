@@ -10,9 +10,36 @@
         <div class="header">
             <div class="nav-bar">
                 <div class="nav">
-                    <a href="/login" v-if="!isLogin">登录</a>
-                    <a href="javascript:void(0)" v-if="isLogin">退出</a>
-                    <a href="/profile" v-if="isLogin">个人中心</a>
+                    <div class="address">
+                        <i class="el-icon-location-information "></i> <span class="address-locate"
+                                                                            v-text="city"
+                                                                            @click="changeAddress"></span>
+                        <el-dialog
+                                title="城市选择"
+                                :visible.sync="changeAddressFlag"
+                                append-to-body
+                                width="30%">
+
+                            <div>
+                                <dl class="city-list">
+                                    <dd class="city city-active" v-for="(city, index) in cityList"
+                                        v-text="city.city_name" :class="{city_active: index === cityActive}"
+                                        @click="cityActive = index"></dd>
+                                </dl>
+                                <p style="color: #909399">其他城市陆续开通中，敬请期待</p>
+                            </div>
+
+                            <span slot="footer" class="dialog-footer">
+                                <el-button @click="changeAddressFlag = false">取 消</el-button>
+                                <el-button type="primary" @click="changeCity">确 定</el-button>
+                            </span>
+                        </el-dialog>
+                    </div>
+                    <div class="operate">
+                        <a href="/login" v-if="!isLogin">登录</a>
+                        <a href="javascript:void(0)" v-if="isLogin">退出</a>
+                        <a href="/profile" v-if="isLogin">个人中心</a>
+                    </div>
                 </div>
             </div>
 
@@ -57,7 +84,6 @@
                     </el-carousel-item>
                 </el-carousel>
             </div>
-
         </div>
 
         <!--house list-->
@@ -75,13 +101,13 @@
 <script>
 
     import HouseList from './HouseList'
-    import Footer from "../footer/Footer";
+    import Footer from '../footer/Footer';
 
     export default {
         name: 'Home',
         data() {
             return {
-                isLogin: true,
+                isLogin: false,
                 imgList: [
                     require('@/assets/images/banner/banner-3.jpg'),
                     require('@/assets/images/banner/banner-4.jpg'),
@@ -89,7 +115,35 @@
                     require('@/assets/images/banner/banner-2.jpg')
                 ],
                 // 吸顶状态
-                isFixed: false
+                isFixed: false,
+                // 控制城市切换 dialog
+                changeAddressFlag: false,
+                // 默认地址
+                city: "全国站",
+                // 当前选中城市ID
+                cityActive: 0,
+                cityList: [
+                    {city_id: 1, city_name: "全国站"},
+                    {city_id: 2, city_name: "北京"},
+                    {city_id: 3, city_name: "上海"},
+                    {city_id: 4, city_name: "深圳"},
+                    {city_id: 5, city_name: "广州"},
+                    {city_id: 6, city_name: "杭州"},
+                    {city_id: 7, city_name: "苏州"},
+                    {city_id: 8, city_name: "成都"},
+                    {city_id: 9, city_name: "重庆"},
+                    {city_id: 10, city_name: "武汉"},
+                    {city_id: 11, city_name: "南昌"},
+                    {city_id: 12, city_name: "贵州"},
+                    {city_id: 13, city_name: "厦门"},
+                    {city_id: 14, city_name: "佛山"},
+                    {city_id: 15, city_name: "东莞"},
+                    {city_id: 16, city_name: "南京"},
+                    {city_id: 17, city_name: "青岛"},
+                    {city_id: 18, city_name: "合肥"},
+                    {city_id: 19, city_name: "天津"},
+                    {city_id: 20, city_name: "郑州"},
+                ]
             }
         },
         components: {
@@ -97,10 +151,23 @@
             HouseList
         },
         methods: {
+            // 模糊查询
             search() {
                 this.$message("OK")
                 return false
             },
+            // 显示更换城市 dialog
+            changeAddress() {
+                this.changeAddressFlag = true
+            },
+
+            // 切换城市
+            changeCity() {
+                this.city = this.cityList[this.cityActive].city_name
+                this.changeAddressFlag = false
+            },
+
+            // 滚动吸顶
             handlerscroll() {
                 let scrollTop = window.pageYOffset
                 let oSearch = this.$refs.search
@@ -127,7 +194,6 @@
 
             }
 
-
         },
         mounted() {
             window.addEventListener("scroll", this.handlerscroll)
@@ -141,6 +207,18 @@
         height: auto;
     }
 
+    .home-container .address {
+        float: left;
+        width: 100px;
+        height: 60px;
+        line-height: 60px;
+        color: #fff;
+    }
+
+    .home-container .address .address-locate {
+        cursor: pointer;
+    }
+
     .home-container .nav-bar {
         position: absolute;
         z-index: 10;
@@ -151,7 +229,38 @@
         align-items: center;
     }
 
-    .home-container .nav-bar .nav {
+    .city-list {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        justify-items: center;
+        align-items: center;
+        width: 100%;
+    }
+
+    .city-list .city {
+        width: 60px;
+        height: 30px;
+        text-align: center;
+        margin: 4px;
+        box-sizing: border-box;
+        line-height: 30px;
+    }
+
+    .city-list .city:hover {
+        background-color: #409EFF;
+        color: #fff;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .city-list .city_active {
+        background-color: #409EFF;
+        color: #fff;
+        border-radius: 4px;
+    }
+
+
+    .nav-bar .nav {
         width: 1200px;
         height: 60px;
         margin: 0 auto;
