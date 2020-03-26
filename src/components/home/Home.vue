@@ -107,7 +107,7 @@
         name: 'Home',
         data() {
             return {
-                isLogin: false,
+                isLogin: true,
                 imgList: [
                     require('@/assets/images/banner/banner-3.jpg'),
                     require('@/assets/images/banner/banner-4.jpg'),

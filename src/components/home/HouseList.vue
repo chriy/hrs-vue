@@ -60,7 +60,7 @@
                     </p>
                 </div>
             </div>
-            <div class="empty-list">
+            <div class="empty-list" v-show="isEmpty">
                 <img :src="require('@/assets/images/error/empty-list.gif')" alt="">
                 <h4>抱歉哦，当前没找到你想要的房源</h4>
             </div>
@@ -87,6 +87,8 @@
                 currIndex: 0,
                 // 房源数量
                 houseNumber: 1,
+                // 房源列表是否为空，控制为空提示信息
+                isEmpty: false,
                 houseList: [
                     {
                         id: 1,
