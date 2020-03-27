@@ -7,6 +7,8 @@ import AdminLogin from '@/components/login/AdminLogin'
 import Home from '@/components/home/Home';
 
 import NotFound from '@/components/error/NotFound'
+import Detail from "../components/detail/Detail";
+import fa from "element-ui/src/locale/lang/fa";
 
 Vue.use(VueRouter);
 
@@ -38,6 +40,16 @@ const routes = [
             requireLogin: false
         }
     },
+    {
+        path: '/detail',
+        name: 'detail',
+        component: Detail,
+        meta:{
+            title: '',
+            requireLogin: false
+        }
+    },
+
     // 404
     {
       path: '*',
